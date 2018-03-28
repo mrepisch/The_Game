@@ -3,7 +3,10 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    OpenGlWindow.cpp \
+    Scene.cpp \
+    Mesh.cpp
 
 RESOURCES += qml.qrc
 
@@ -12,4 +15,13 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    OpenGlWindow.h \
+    Scene.h \
+    Mesh.h
+
+DISTFILES += \
+    basic_vertex.sha \
+    basic_fragment.sha
 

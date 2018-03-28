@@ -1,0 +1,15 @@
+#version 330 core
+layout (location = 0) in vec3 vertex;
+layout (location = 0) in vec3 colorVec;
+uniform mat4 projection;
+
+out vec3 color;
+
+void main()
+{
+    // note that we read the multiplication from right to left
+    color = colorVec;
+    gl_Position = projection * vec4(vertex, 1.0);
+
+
+}
