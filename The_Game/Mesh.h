@@ -7,6 +7,7 @@
 #include <QString>
 #include <QHash>
 #include <QMatrix4x4>
+#include <QVector3D>
 class Mesh
 {
 public:
@@ -15,9 +16,13 @@ public:
 
     void render(const QMatrix4x4& t_projection);
 
+
+
 private:
     void loadTriangle();
-
+    QVector3D m_pos;
+    QVector3D m_scl;
+    QVector3D m_rot;
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vertexPosition;
     QOpenGLBuffer m_vertexColor;

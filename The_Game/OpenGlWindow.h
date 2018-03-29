@@ -16,10 +16,10 @@ public:
     void render();
     void render(QPainter *painter);
 
+    void init();
+
 public slots:
     void update();
-    void renderLater();
-    void renderNow();
 
 private:
     QOpenGLContext *m_context;

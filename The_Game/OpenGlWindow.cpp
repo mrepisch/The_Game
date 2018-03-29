@@ -18,15 +18,6 @@ OpenGlWindow::OpenGlWindow(QWindow *parent) : QWindow(parent)
     m_context->setFormat(a_format);
     m_context->create();
     m_context->makeCurrent(this);
-    initializeOpenGLFunctions();
-    QTimer* a_timer = new QTimer(this);
-    connect(a_timer, SIGNAL(timeout()),this, SLOT(update()));
-    a_timer->start(16);
-
-
-    Mesh* mesh = new Mesh("triangle");
-    m_scene.addMesh(mesh);
-
 }
 
 OpenGlWindow::~OpenGlWindow()
@@ -36,9 +27,9 @@ OpenGlWindow::~OpenGlWindow()
 
 void OpenGlWindow::render()
 {
+    if(!isExposed())return;
     m_context->makeCurrent(this);
-    const qreal retinaScale = devicePixelRatio();
-    glViewport(0, 0, width() * retinaScale, height() * retinaScale);
+
 
     m_scene.render();
 
@@ -48,6 +39,21 @@ void OpenGlWindow::render()
 void OpenGlWindow::render(QPainter *painter)
 {
     Q_UNUSED(painter);
+}
+
+void OpenGlWindow::init()
+{
+    m_context->makeCurrent(this);
+
+    initializeOpenGLFunctions();
+    QTimer* a_timer = new QTimer(this);
+    connect(a_timer, SIGNAL(timeout()),this, SLOT(update()));
+    a_timer->start(16);
+
+
+    Mesh* mesh = new Mesh("triangle");
+    m_scene.addMesh(mesh);
+
 }
 
 void OpenGlWindow::update()

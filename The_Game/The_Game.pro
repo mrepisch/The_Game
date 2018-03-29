@@ -6,7 +6,8 @@ CONFIG += c++11
 SOURCES += main.cpp \
     OpenGlWindow.cpp \
     Scene.cpp \
-    Mesh.cpp
+    Mesh.cpp \
+    Camera.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,7 +20,8 @@ include(deployment.pri)
 HEADERS += \
     OpenGlWindow.h \
     Scene.h \
-    Mesh.h
+    Mesh.h \
+    Camera.h
 
 DISTFILES += \
     basic_vertex.sha \
