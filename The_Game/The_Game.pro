@@ -3,11 +3,7 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-SOURCES += main.cpp \
-    OpenGlWindow.cpp \
-    Scene.cpp \
-    Mesh.cpp \
-    Camera.cpp
+SOURCES += main.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,13 +13,16 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-HEADERS += \
-    OpenGlWindow.h \
-    Scene.h \
-    Mesh.h \
-    Camera.h
+HEADERS +=
 
 DISTFILES += \
     basic_vertex.sha \
     basic_fragment.sha
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../debug/release/ -lEntityComponent
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../debug/debug/ -lEntityComponent
+else:unix: LIBS += -L$$PWD/../debug/ -lEntityComponent
+
+INCLUDEPATH += $$PWD/../QEntityComponent
+DEPENDPATH += $$PWD/../QEntityComponent
