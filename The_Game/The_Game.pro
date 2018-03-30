@@ -26,3 +26,10 @@ else:unix: LIBS += -L$$PWD/../debug/ -lEntityComponent
 
 INCLUDEPATH += $$PWD/../QEntityComponent
 DEPENDPATH += $$PWD/../QEntityComponent
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../debug/release/ -lQTmxMap
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../debug/debug/ -lQTmxMap
+else:unix: LIBS += -L$$PWD/../debug/ -lQTmxMap
+
+INCLUDEPATH += $$PWD/../QTmxMap/QTmxMap
+DEPENDPATH += $$PWD/../QTmxMap/QTmxMap
