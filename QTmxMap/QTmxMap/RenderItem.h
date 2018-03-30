@@ -13,17 +13,17 @@ class QSGSimpleTextureNode;
 /*!
   A render item is a visual item and is rendered using the scene graph.
 */
-class Tile : public QQuickItem {
+class RenderItem : public QQuickItem {
  public:
   //! A constructor.
   /*!
     \param parent The parent render item.
     \param textureNode A texture node.
   */
-  Tile(QQuickItem* const parent);
+  RenderItem(QQuickItem* const parent);
 
   //! A destructor.
-  virtual ~Tile();
+  virtual ~RenderItem();
 
   //! Sets the texture of the texture node.
   /*!
@@ -59,7 +59,7 @@ class Tile : public QQuickItem {
 
  private:
   // Disables the use of copy constructors and assignment operators.
-  Q_DISABLE_COPY(Tile);
+  Q_DISABLE_COPY(RenderItem);
 
   // Holds a texture node.
   QSGSimpleTextureNode* textureNode_;

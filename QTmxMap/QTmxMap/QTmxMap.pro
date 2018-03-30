@@ -13,16 +13,26 @@ TEMPLATE = lib
 
 DEFINES += QTMXMAP_LIBRARY
 
-SOURCES += Qtmxmap.cpp \
-    TmxReader.cpp \
-    TmxMapData.cpp \
-    Tile.cpp
+SOURCES += \
+    QTmxTileMap.cpp \
+    QTxmMapLayer.cpp \
+    TmxFactory.cpp \
+    QTmxTileSet.cpp \
+    TextureAtlas.cpp \
+    QTmxObjectGroup.cpp \
+    RenderItem.cpp \
+    QTmxObject.cpp
 
-HEADERS += Qtmxmap.h\
+HEADERS +=\
         qtmxmap_global.h \
-    TmxReader.h \
-    TmxMapData.h \
-    Tile.h
+    QTmxTileMap.h \
+    QTxmMapLayer.h \
+    TmxFactory.h \
+    QTmxTileSet.h \
+    TextureAtlas.h \
+    QTmxObjectGroup.h \
+    QTmxObject.h \
+    RenderItem.h
 
 unix {
     target.path = /usr/lib

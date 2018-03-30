@@ -2,34 +2,34 @@
 #include <QSGSimpleTextureNode>
 #include <QDebug>
 // Internal includes
-#include "Tile.h"
+#include "RenderItem.h"
 
 
 
-Tile::Tile(QQuickItem* const parent) : QQuickItem(parent) {
+RenderItem::RenderItem(QQuickItem* const parent) : QQuickItem(parent) {
   setFlag(QQuickItem::ItemHasContents, true);
   textureNode_ = NULL;
 }
 
-Tile::~Tile() {}
+RenderItem::~RenderItem() {}
 
-void Tile::setTexture(QSGTexture *texture) {
+void RenderItem::setTexture(QSGTexture *texture) {
   if(textureNode_ != NULL) {
     textureNode_->setTexture(texture);
   }
 }
 
-void Tile::setTextureNode(QSGSimpleTextureNode *textureNode) {
+void RenderItem::setTextureNode(QSGSimpleTextureNode *textureNode) {
   textureNode_ = textureNode;
 }
 
-void Tile::setRect(const QRectF rect) {
+void RenderItem::setRect(const QRectF rect) {
   if(textureNode_ != NULL) {
     textureNode_->setRect(rect);
   }
 }
 
-QRectF Tile::getRect() const {
+QRectF RenderItem::getRect() const {
 
   if(textureNode_ != NULL) {
     return textureNode_->rect();
@@ -37,7 +37,7 @@ QRectF Tile::getRect() const {
   return QRectF();
 }
 
-QSGNode* Tile::updatePaintNode(QSGNode* oldNode, QQuickItem::UpdatePaintNodeData*) {
+QSGNode* RenderItem::updatePaintNode(QSGNode* oldNode, QQuickItem::UpdatePaintNodeData*) {
 
   return textureNode_;
 }
