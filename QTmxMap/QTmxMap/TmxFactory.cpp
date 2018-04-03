@@ -10,10 +10,10 @@ TmxFactory::TmxFactory()
 
 }
 
-QSharedPointer<QTmxTileMap> TmxFactory::loadFile(const QString &t_path, QQuickWindow *t_window)
+QSharedPointer<QTmxTileMap> TmxFactory::loadFile(const QString &p_path, QQuickWindow *p_window, QSharedPointer<Camera>p_camera )
 {
     QSharedPointer<QTmxTileMap>r_map;
-    QFile a_tmxFile(t_path);
+    QFile a_tmxFile(p_path);
     if( a_tmxFile.exists())
     {
         a_tmxFile.open(QIODevice::ReadOnly);
@@ -33,7 +33,7 @@ QSharedPointer<QTmxTileMap> TmxFactory::loadFile(const QString &t_path, QQuickWi
             }
             if( m_xmlReader.isStartElement() && m_xmlReader.name() == S_TILESET_TAGNAME)
             {
-                QSharedPointer<QTmxTileSet>a_tileSet = readTileSet(t_window);
+                QSharedPointer<QTmxTileset>a_tileSet = readTileSet(p_window);
                 r_map->addTileSet(a_tileSet);
             }
             if( m_xmlReader.isStartElement() &&m_xmlReader.name() == QStringLiteral("objectgroup"))
@@ -41,12 +41,19 @@ QSharedPointer<QTmxTileMap> TmxFactory::loadFile(const QString &t_path, QQuickWi
                 QSharedPointer<QTmxObjectGroup>a_objectGroup = readObjectGroup();
                 r_map->addObjectLayer(a_objectGroup);
             }
+            if( m_xmlReader.isStartElement() && m_xmlReader.name() == QStringLiteral("layer"))
+            {
+                QSharedPointer<QTmxMapLayer>a_layer = readLayer();
+                r_map->addTileLayer(a_layer);
+
+            }
         }
     }
     else
     {
         qCritical()<<QStringLiteral("Txm File not found");
     }
+    r_map->initalizeGrafics(p_window, p_camera.data());
     return r_map;
 }
 
@@ -60,11 +67,12 @@ QHash<QString, QString> TmxFactory::readAttributes()
     return r_attributes;
 }
 
-QSharedPointer<QTmxTileSet> TmxFactory::readTileSet(QQuickWindow* p_window)
+QSharedPointer<QTmxTileset> TmxFactory::readTileSet(QQuickWindow* p_window)
 {
 
     QHash<QString,QString>a_tileSetAttr = readAttributes();
-    QSharedPointer<QTmxTileSet>r_tileSet = QSharedPointer<QTmxTileSet>(new QTmxTileSet(
+    QSharedPointer<QTmxTileset>r_tileSet = QSharedPointer<QTmxTileset>(new QTmxTileset(
+                                                                       a_tileSetAttr.value(QStringLiteral("firstgid")).toInt(),
                                                                        a_tileSetAttr.value(QStringLiteral("name")),
                                                                        a_tileSetAttr.value(QStringLiteral("tileheight")).toInt(),
                                                                        a_tileSetAttr.value(QStringLiteral("tileheight")).toInt(),
@@ -141,6 +149,33 @@ QSharedPointer<QTmxObject> TmxFactory::readObject()
         }
     }
     return r_object;
+}
+
+QSharedPointer<QTmxMapLayer> TmxFactory::readLayer()
+{
+    QHash<QString,QString>a_attr = readAttributes();
+    QSharedPointer<QTmxMapLayer>r_layer = QSharedPointer<QTmxMapLayer>(new QTmxMapLayer(
+                                                                           a_attr.value(QStringLiteral("name")),
+                                                                           a_attr.value(QStringLiteral("width")).toInt(),
+                                                                           a_attr.value(QStringLiteral("height")).toInt()
+                                                                           ));
+    while( m_xmlReader.readNext() && !m_xmlReader.atEnd())
+    {
+        if(m_xmlReader.isStartElement() && m_xmlReader.name() == QStringLiteral("properties") )
+        {
+            r_layer->addProperties(readProperties());
+        }
+        else if( m_xmlReader.isStartElement() && m_xmlReader.name() == QStringLiteral("data"))
+        {
+            QString a_data = m_xmlReader.readElementText();
+            r_layer->setTileData(a_data);
+        }
+        if( m_xmlReader.isEndElement() && m_xmlReader.name() == QStringLiteral("layer"))
+        {
+            break;
+        }
+    }
+    return r_layer;
 }
 
 QHash<QString, QString> TmxFactory::readProperties()

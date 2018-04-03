@@ -1,14 +1,14 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
 
-Window {
-    visible: true
 
-    MainForm {
-        anchors.fill: parent
-        mouseArea.onClicked: {
-            Qt.quit();
-        }
-    }
+    Rectangle {
+        id: rectangle1
+        x: 0
+        y: 0
+        width: 315
+        height: 121
+        color: "#830505"
+
 }
 

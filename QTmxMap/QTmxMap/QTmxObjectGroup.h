@@ -19,6 +19,7 @@ public:
     void addProperties( QHash<QString,QString>p_properties);
     const QHash<QString,QString>getProperties();
     const QString& getName();
+    void update();
 signals:
 
 public slots:

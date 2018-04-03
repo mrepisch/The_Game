@@ -4,7 +4,8 @@
 // External includes
 #include <QQuickItem>
 #include <QSGTexture>
-
+#include <QSharedPointer>
+#include <QRectF>
 // External forward declarations
 class QSGSimpleTextureNode;
 
@@ -60,6 +61,9 @@ class RenderItem : public QQuickItem {
  private:
   // Disables the use of copy constructors and assignment operators.
   Q_DISABLE_COPY(RenderItem);
+
+  QSGTexture* m_texture;
+  QRectF m_rect;
 
   // Holds a texture node.
   QSGSimpleTextureNode* textureNode_;

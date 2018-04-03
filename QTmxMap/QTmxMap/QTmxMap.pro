@@ -15,24 +15,30 @@ DEFINES += QTMXMAP_LIBRARY
 
 SOURCES += \
     QTmxTileMap.cpp \
-    QTxmMapLayer.cpp \
     TmxFactory.cpp \
-    QTmxTileSet.cpp \
     TextureAtlas.cpp \
     QTmxObjectGroup.cpp \
     RenderItem.cpp \
-    QTmxObject.cpp
+    QTmxObject.cpp \
+    QTmxMapLayer.cpp \
+    Camera.cpp \
+    QTmxTileset.cpp \
+    QTmxTile.cpp \
+    QAStart.cpp
 
 HEADERS +=\
         qtmxmap_global.h \
     QTmxTileMap.h \
-    QTxmMapLayer.h \
     TmxFactory.h \
-    QTmxTileSet.h \
     TextureAtlas.h \
     QTmxObjectGroup.h \
     QTmxObject.h \
-    RenderItem.h
+    RenderItem.h \
+    QTmxMapLayer.h \
+    Camera.h \
+    QTmxTileset.h \
+    QTmxTile.h \
+    QAStart.h
 
 unix {
     target.path = /usr/lib

@@ -1,6 +1,6 @@
 #include "QTmxObject.h"
 
-QTmxObject::QTmxObject(int p_id, const QString& p_name, const QString& p_type, int x, int y, int width, int height, QObject *parent) : QObject(parent)
+QTmxObject::QTmxObject(int p_id, const QString& p_name, const QString& p_type, int x, int y, int width, int height,  QObject *parent) : QObject(parent)
 {
     m_id = p_id;
     m_name = p_name;
@@ -54,4 +54,9 @@ void QTmxObject::setPosition(int x, int y)
 {
     m_rect.setX(x);
     m_rect.setY(y);
+}
+
+void QTmxObject::update()
+{
+    m_renderItem->update();
 }

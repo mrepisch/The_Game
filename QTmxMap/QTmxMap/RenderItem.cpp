@@ -9,13 +9,19 @@
 RenderItem::RenderItem(QQuickItem* const parent) : QQuickItem(parent) {
   setFlag(QQuickItem::ItemHasContents, true);
   textureNode_ = NULL;
+  m_texture = NULL;
 }
 
 RenderItem::~RenderItem() {}
 
 void RenderItem::setTexture(QSGTexture *texture) {
-  if(textureNode_ != NULL) {
-    textureNode_->setTexture(texture);
+  if( texture != NULL)
+  {
+      if( textureNode_ == NULL)
+      {
+          textureNode_ = new QSGSimpleTextureNode();
+      }
+      m_texture = texture;
   }
 }
 
@@ -24,20 +30,20 @@ void RenderItem::setTextureNode(QSGSimpleTextureNode *textureNode) {
 }
 
 void RenderItem::setRect(const QRectF rect) {
-  if(textureNode_ != NULL) {
-    textureNode_->setRect(rect);
-  }
+    m_rect = rect;
 }
 
 QRectF RenderItem::getRect() const {
-
-  if(textureNode_ != NULL) {
-    return textureNode_->rect();
-  }
-  return QRectF();
+    return m_rect;
 }
 
 QSGNode* RenderItem::updatePaintNode(QSGNode* oldNode, QQuickItem::UpdatePaintNodeData*) {
+
+  if(textureNode_!= NULL, m_texture != NULL)
+  {
+    textureNode_->setTexture(m_texture);
+    textureNode_->setRect(m_rect);
+  }
 
   return textureNode_;
 }

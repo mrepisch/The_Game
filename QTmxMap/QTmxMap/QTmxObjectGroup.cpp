@@ -41,3 +41,10 @@ const QString &QTmxObjectGroup::getName()
     return m_name;
 }
 
+void QTmxObjectGroup::update()
+{
+    foreach( QSharedPointer<QTmxObject>a_iter , m_objects){
+        a_iter->update();
+    }
+}
+
